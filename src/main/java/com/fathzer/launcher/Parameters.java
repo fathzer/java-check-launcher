@@ -4,21 +4,32 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.util.Properties;
 
+import com.fathzer.launcher.Utils.InputStreamSupplier;
+
 public class Parameters {
 	private final float min;
 	private final String className;
 	private Output out;
 	
-	public interface ParametersSourceSupplier {
-		InputStream get() throws IOException;
-	}
-	
 	public Parameters(float min, String className) {
+		if (min<1.2) {
+			throw new IllegalArgumentException("Illegal Java min version "+min);
+		}
+		if (className==null || className.trim().length()==0) {
+			throw new IllegalArgumentException("Main class is missing");
+		}
 		this.min = min;
 		this.className = className;
+		this.out = new Console();
 	}
 
-	public static Parameters get(ParametersSourceSupplier supplier) throws IOException {
+	/** Reads a Parameters instance from an inputStream on a property file or resource.
+	 * @param supplier The input stream supplier
+	 * @return The Parameters that was read.
+	 * @throws IOException if something when wrong while reading the input stream.
+	 * @throws IllegalArgumentException if the content is illegal (java version < 1.2, classname missing, etc...)  
+	 */
+	public static Parameters get(InputStreamSupplier supplier) throws IOException {
 		final Properties prop = new Properties();
 		InputStream in = supplier.get();
 		try {
@@ -26,9 +37,17 @@ public class Parameters {
 		} finally {
 			in.close();
 		}
-		final float min = Float.parseFloat(prop.getProperty("min.java.version"));
+		final String min = prop.getProperty("min.java.version");
+		if (min==null) {
+			throw new IllegalArgumentException("Minimum java version is missing");
+		}
 		final String className = prop.getProperty("main.class");
-		return new Parameters(min, className);
+		final Parameters parameters = new Parameters(Float.parseFloat(min), className);
+		final String out = prop.getProperty("gui","");
+		if ("Swing".equalsIgnoreCase(out)) {
+			parameters.setOutput(new Swing());
+		}
+		return parameters;
 	}
 
 	public float getMinJavaVersion() {

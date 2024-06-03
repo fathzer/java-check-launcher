@@ -1,4 +1,4 @@
-[![Maven Central](https://img.shields.io/maven-central/v/com.fathzer/ajlib)](https://central.sonatype.com/artifact/com.fathzer/java-check-launcher)
+[![Maven Central](https://img.shields.io/maven-central/v/com.fathzer/java-check-launcher)](https://central.sonatype.com/artifact/com.fathzer/java-check-launcher)
 [![License](https://img.shields.io/badge/license-Apache%202.0-brightgreen.svg)](https://github.com/fathzer/java-check-launcher/blob/master/LICENSE)
 [![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=fathzer_java-check-launcher&metric=alert_status)](https://sonarcloud.io/summary/new_code?id=fathzer_java-check-launcher)
 [![javadoc](https://javadoc.io/badge2/com.fathzer/java-check-launcher/javadoc.svg)](https://javadoc.io/doc/com.fathzer/java-check-launcher)
