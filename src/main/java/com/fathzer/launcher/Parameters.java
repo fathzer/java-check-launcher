@@ -9,17 +9,18 @@ public class Parameters {
 	private final String className;
 	private Output out;
 	
+	public interface ParametersSourceSupplier {
+		InputStream get() throws IOException;
+	}
+	
 	public Parameters(float min, String className) {
 		this.min = min;
 		this.className = className;
 	}
 
-	public static Parameters get() throws IOException {
+	public static Parameters get(ParametersSourceSupplier supplier) throws IOException {
 		final Properties prop = new Properties();
-		InputStream in = Parameters.class.getResourceAsStream("settings.properties");
-		if (in==null) {
-			throw new IOException("Can't read "+Utils.getPackageName(Parameters.class).replace('.', '/')+"/settings.properties resource");
-		}
+		InputStream in = supplier.get();
 		try {
 			prop.load(in);
 		} finally {

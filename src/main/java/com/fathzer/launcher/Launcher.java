@@ -1,20 +1,38 @@
 package com.fathzer.launcher;
 
 import java.io.IOException;
+import java.io.InputStream;
 import java.lang.reflect.Method;
 import java.text.MessageFormat;
 
 import javax.swing.JOptionPane;
 
+import com.fathzer.launcher.Parameters.ParametersSourceSupplier;
+
 public class Launcher {
+	private static final ParametersSourceSupplier DEFAULT_PARAM_SOURCE_SUPPLIER = new ParametersSourceSupplier() {
+		@Override
+		public InputStream get() throws IOException {
+			final InputStream stream = Parameters.class.getResourceAsStream("settings.properties");
+			if (stream==null) {
+				throw new IOException("Can't read "+Utils.getPackageName(Parameters.class).replace('.', '/')+"/settings.properties resource");
+			}
+			return stream;
+		}
+	};
+	
+	
 	public static void main(String[] args) {
 		new Launcher().doMain(args, new Console());
 	}
 	
 	protected void doMain(String[] args, Output defaultOutput) {
+		doMain(args, defaultOutput, DEFAULT_PARAM_SOURCE_SUPPLIER);
+	}
+
+	protected void doMain(String[] args, Output defaultOutput, ParametersSourceSupplier paramSource) {
 		try {
-			final Parameters params;
-			params = Parameters.get();
+			final Parameters params = Parameters.get(paramSource);
 			if (!launch(params, args)) {
 				exit(-1);
 			}
@@ -56,7 +74,7 @@ public class Launcher {
 		error(MessageFormat.format(pattern, args));
 	}
 
-	static void error(String message) {
+	private static void error(String message) {
 		JOptionPane.showMessageDialog(null, message, "Sorry, unable to launch application", JOptionPane.ERROR_MESSAGE);
 	}
 }
