@@ -12,7 +12,8 @@
 
 	<name>java-check-launcher</name>
 
-	<description>A java application launcher that checks if used JRE is compatible with launched application</description>
+	<description>A java application launcher that checks if used JRE is
+		compatible with launched application</description>
 	<url>https://github.com/yapbam/yapbam-launcher</url>
 
 	<scm>
@@ -23,16 +24,68 @@
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<animal-sniffer-signature>java12</animal-sniffer-signature>
-		<maven.compiler.source>1.2</maven.compiler.source>
-		<maven.compiler.target>1.2</maven.compiler.target>
+		<compileSource>1.2</compileSource>
+		<testCompileSource>1.7</testCompileSource>
 	</properties>
+
+	<profiles>
+		<profile>
+			<id>sonar</id>
+			<properties>
+				<sonar.issue.ignore.multicriteria>e1</sonar.issue.ignore.multicriteria>
+				<!-- Skip parametrized type for generic not supported in java 1.2 -->
+				<sonar.issue.ignore.multicriteria.e1.ruleKey>java:S3740</sonar.issue.ignore.multicriteria.e1.ruleKey>
+				<sonar.issue.ignore.multicriteria.e1.resourceKey>**/*</sonar.issue.ignore.multicriteria.e1.resourceKey>
+				<!-- Sonar requires java 17 that does not support any java version under 1.7 -->
+				<compileSource>1.7</compileSource>
+				<!-- We should check code with java 1.7 signatures because the
+				String + operator results in StringBuilder use which is unavailable in 1.2 -->
+				<animal-sniffer-signature>java17</animal-sniffer-signature>
+				<!-- Be cool with the planet, javadoc is totally useless in Sonar context -->
+				<maven.javadoc.skip>true</maven.javadoc.skip>
+			</properties>
+		</profile>
+	</profiles>
 
 	<build>
 		<plugins>
+			<!-- -->
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-compiler-plugin</artifactId>
+				<executions>
+					<execution>
+						<id>default-compile</id>
+						<configuration>
+							<fork>true</fork>
+							<source>${compileSource}</source>
+							<target>${compileSource}</target>
+						</configuration>
+					</execution>
+					<execution>
+						<id>default-test-compile</id>
+						<configuration>
+							<fork>true</fork>
+							<source>${testCompileSource}</source>
+							<target>${testCompileSource}</target>
+						</configuration>
+					</execution>
+				</executions>
+			</plugin>
+			
 			<plugin>
 				<groupId>org.codehaus.mojo</groupId>
 				<artifactId>animal-sniffer-maven-plugin</artifactId>
 			</plugin>
 		</plugins>
 	</build>
+
+	<dependencies>
+		<dependency>
+			<groupId>junit</groupId>
+			<artifactId>junit</artifactId>
+			<version>4.13.2</version>
+			<scope>test</scope>
+		</dependency>
+	</dependencies>
 </project>

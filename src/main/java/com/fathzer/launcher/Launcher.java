@@ -11,20 +11,20 @@ public class Launcher {
 		new Launcher().doMain(args, new Console());
 	}
 	
-	void doMain(String[] args, Output defaultOutput) {
+	protected void doMain(String[] args, Output defaultOutput) {
 		try {
 			final Parameters params;
 			params = Parameters.get();
-			if (launch(params, args)) {
+			if (!launch(params, args)) {
 				exit(-1);
 			}
 		} catch (IOException e) {
 			defaultOutput.error(null, e);
+			exit(-2);
 		}
-		exit(-2);
 	}
 	
-	void exit(int code) {
+	protected void exit(int code) {
 		System.exit(code);
 	}
 	
@@ -36,8 +36,11 @@ public class Launcher {
 			error(message);
 		} else {
 			try {
-				Method method = Class.forName(params.getClassName()).getMethod("main", new Class[]{String[].class});
-				method.invoke(null, new Object[]{args});
+				// Warning: In java 1.2, getMethod and invoke requires arrays of arguments (the variable argument length notation, with ..., is not available in the java 1.2 language)
+				Class[] argsClass = new Class[]{String[].class};
+				Method method = Class.forName(params.getClassName()).getMethod("main", argsClass);
+				Object[] arguments = new Object[]{args};
+				method.invoke(null, arguments);
 				return true;
 			} catch (Exception e) {
 				error(e);
@@ -49,7 +52,8 @@ public class Launcher {
 	private static void error(Throwable e) {
 		String pattern = "<html>A fatal error occurs ({0}).<br>Maybe a program file is corrupted.<br>" +
 		"<br>You should try to install the application again in order to fix it.<br></html>";
-		error(MessageFormat.format(pattern, new Object[]{e.toString()}));
+		final Object[] args = new Object[]{e.toString()};
+		error(MessageFormat.format(pattern, args));
 	}
 
 	static void error(String message) {
