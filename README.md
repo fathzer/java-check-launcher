@@ -34,9 +34,13 @@ Replace the `min.java.version` value with the minimum java version required by y
 
 3 - Launch the application.
 Run the command `java com.fathzer.launcher.Launcher arg1 arg2`.  
-The launcher will check the java version and will display a comprehensive message if application is not compatible with installed java version (not the usual `unsupported class file major version` exception).
+The launcher will check the java version and will display a comprehensive message if application is not compatible with installed java version (not the usual `unsupported class file major version` exception).  
+If the java version is not supported, the process exits with a -1 code. If an error occurs (for instance if settings are invalid), the process exits with a -2 code.  
+If everything is ok, the arguments are passed to the application's main method.
+
+
 
 ## How to compile it?
-Recent Java JDK are not able to compile anymore java 1.2 code. *You should use a Java 8 JDK*.
+Recent Java JDK are not able to compile anymore java 1.2 code. **You should use a Java 8 JDK**.
 
 Run the command `mvn clean compile`

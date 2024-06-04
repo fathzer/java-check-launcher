@@ -11,7 +11,7 @@ public class NoExitLauncher extends Launcher {
 	}
 
 	@Override
-	protected void exit(int code) {
+	protected void error(int code) {
 		exitCode = code;
 	}
 
