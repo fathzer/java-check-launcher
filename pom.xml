@@ -46,7 +46,7 @@
 				<sonar.issue.ignore.multicriteria.e4.ruleKey>java:S4507</sonar.issue.ignore.multicriteria.e4.ruleKey>
 				<sonar.issue.ignore.multicriteria.e4.resourceKey>**/Console.java</sonar.issue.ignore.multicriteria.e4.resourceKey>
 				<!-- exclude Loggers from coverage -->
-				<sonar.coverage.exclusions>**/Console.java,**/Swing.java</sonar.coverage.exclusions>
+				<sonar.coverage.exclusions>**/Swing.java,**/Console.java</sonar.coverage.exclusions>
 
 				<!-- Sonar requires java 17 that does not support any java version under 1.7 -->
 				<compileSource>1.7</compileSource>
