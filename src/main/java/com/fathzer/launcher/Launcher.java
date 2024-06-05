@@ -19,7 +19,7 @@ public class Launcher {
 		new Launcher().doMain(args, new Console());
 	}
 	
-	void doMain(String[] args, Output defaultOutput) {
+	void doMain(String[] args, Logger defaultOutput) {
 		doMain(args, defaultOutput, new ResourceStreamSupplier(DEFAULT_PARAM_SOURCE_PATH));
 	}
 
@@ -30,23 +30,23 @@ public class Launcher {
 	 * @param paramSource The source where to read the parameters.
 	 * @see #main(String[])
 	 */
-	protected void doMain(String[] args, Output defaultOutput, InputStreamSupplier paramSource) {
+	protected void doMain(String[] args, Logger defaultOutput, InputStreamSupplier paramSource) {
 		try {
 			final Parameters params = Parameters.get(paramSource);
-			defaultOutput = params.getOutput();
+			defaultOutput = params.getLogger();
 			if (!launch(params, args)) {
 				error(-1);
 			}
 		} catch (Exception e) {
-			defaultOutput.error(null, e);
+			defaultOutput.fatalError(e);
 			error(-2);
 		}
 	}
 	
-	/** This method is called when the {@link #doMain(String[], Output, InputStreamSupplier)} method does not launch the application.
+	/** This method is called when the {@link #doMain(String[], Logger, InputStreamSupplier)} method does not launch the application.
 	 * <br>The default implementation calls System.exit with the code passed to the method.
 	 * <br>One can override this method to prevent the process from exiting.
-	 * @param code The problem's code: -1 -> java version is not compatible with the application, -2 -> A misconfiguration was detected 
+	 * @param code The problem's code: -1 -&gt; java version is not compatible with the application, -2 -&gt; A misconfiguration was detected 
 	 */
 	protected void error(int code) {
 		System.exit(code);
@@ -61,10 +61,8 @@ public class Launcher {
 	 */
 	public boolean launch(Parameters params, String[] args) throws ReflectiveOperationException {
 		final String current = System.getProperty("java.specification.version");
-		if (Float.parseFloat(current)<params.getMinJavaVersion()) {
-			String message = "<html>Your current java version is "+current+
-					".<br>This application requires Java "+params.getMinJavaVersion()+" or more.<br>Please have a look at <a href=\"https://www.oracle.com/java\">https://www.oracle.com/java</a>";
-			params.getOutput().error(message, null);
+		if (new Version(current).compareTo(params.getMinJavaVersion())<0) {
+			params.getLogger().wrongJavaVersion(params.getMinJavaVersion(), current);
 		} else {
 			// Warning: In java 1.2, getMethod and invoke requires arrays of arguments (the variable argument length notation, with ..., is not available in the java 1.2 language)
 			Class[] argsClass = new Class[]{String[].class};

@@ -44,7 +44,7 @@ public class LauncherFailTest {
 
 	@Test
 	public void test() {
-		launcher.doMain(new String[]{"A","B"}, new Console(), new Utils.ResourceStreamSupplier(resourcePath));
+		launcher.doMain(new String[]{"A","B"}, new Quiet(), new Utils.ResourceStreamSupplier(resourcePath));
 		assertFalse(TestApp.wasCalled());
 		assertEquals(expectedExitCode, launcher.getExitCode());
 	}

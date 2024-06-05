@@ -5,7 +5,7 @@ public class NoExitLauncher extends Launcher {
 
 	
 	@Override
-	protected void doMain(String[] args, Output defaultOutput) {
+	protected void doMain(String[] args, Logger defaultOutput) {
 		exitCode = null;
 		super.doMain(args, defaultOutput);
 	}

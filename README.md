@@ -27,10 +27,10 @@ Add the following dependency to your project.
 ```
 min.java.version=1.8
 main.class=com.me.MyApp
-gui=swing
+logger=swing
 ```
 Replace the `min.java.version` value with the minimum java version required by your application and `main.class` value by the name of your main class.  
-`gui` is optional. If your application is a Swing application, leave the line, if it is a console application, remove the line.
+`logger` is optional. If your application is a Swing application, leave the line, if it is a console application, remove the line.
 
 3 - Launch the application.
 Run the command `java com.fathzer.launcher.Launcher arg1 arg2`.  
