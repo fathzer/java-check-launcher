@@ -32,10 +32,13 @@
 		<profile>
 			<id>sonar</id>
 			<properties>
-				<sonar.issue.ignore.multicriteria>e1</sonar.issue.ignore.multicriteria>
+				<sonar.issue.ignore.multicriteria>e1,e2</sonar.issue.ignore.multicriteria>
 				<!-- Skip parametrized type for generic not supported in java 1.2 -->
 				<sonar.issue.ignore.multicriteria.e1.ruleKey>java:S3740</sonar.issue.ignore.multicriteria.e1.ruleKey>
 				<sonar.issue.ignore.multicriteria.e1.resourceKey>**/*</sonar.issue.ignore.multicriteria.e1.resourceKey>
+				<!-- Skip use of System.err for Console logger -->
+				<sonar.issue.ignore.multicriteria.e2.ruleKey>java:S106</sonar.issue.ignore.multicriteria.e2.ruleKey>
+				<sonar.issue.ignore.multicriteria.e2.resourceKey>**/Console</sonar.issue.ignore.multicriteria.e2.resourceKey>
 				<!-- Sonar requires java 17 that does not support any java version under 1.7 -->
 				<compileSource>1.7</compileSource>
 				<!-- We should check code with java 1.7 signatures because the

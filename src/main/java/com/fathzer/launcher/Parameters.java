@@ -2,6 +2,7 @@ package com.fathzer.launcher;
 
 import java.io.IOException;
 import java.io.InputStream;
+import java.lang.reflect.InvocationTargetException;
 import java.util.Properties;
 
 import com.fathzer.launcher.Utils.InputStreamSupplier;
@@ -65,15 +66,13 @@ public class Parameters {
 	private static Logger getCustomLogger(String className) {
 		try {
 			final Class theClass = Class.forName(className);
-			return (Logger) theClass.newInstance();
-		} catch (ClassNotFoundException e) {
-			throw new IllegalArgumentException("Unable to find class "+className);
-		} catch (InstantiationException e) {
-			throw new IllegalArgumentException("Unable to create "+className+" instance with no constructor");
-		} catch (IllegalAccessException e) {
-			throw new IllegalArgumentException("Unable to create "+className+" instance");
+			return (Logger) theClass.getDeclaredConstructor().newInstance();
+		} catch (ReflectiveOperationException e) {
+			throw new IllegalArgumentException("Unable to create class "+className+" with no argument constructor");
 		} catch (ClassCastException e) {
 			throw new IllegalArgumentException("Class "+className+" does not implements "+Logger.class.getName());
+		} catch (SecurityException e) {
+			throw new IllegalArgumentException("Unable to create class "+className+" with no argument constructor");
 		}
 	}
 

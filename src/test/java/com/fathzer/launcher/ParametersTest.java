@@ -3,7 +3,6 @@ package com.fathzer.launcher;
 import static org.junit.Assert.*;
 
 import java.io.IOException;
-import java.math.BigDecimal;
 
 import org.junit.Test;
 

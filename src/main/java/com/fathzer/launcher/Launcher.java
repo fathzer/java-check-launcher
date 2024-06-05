@@ -73,15 +73,4 @@ public class Launcher {
 		}
 		return false;
 	}
-/*
-	private void error(Throwable e) {
-		String pattern = "<html>A fatal error occurs ({0}).<br>Maybe a program file is corrupted.<br>" +
-		"<br>You should try to install the application again in order to fix it.<br></html>";
-		final Object[] args = new Object[]{e.toString()};
-		error(MessageFormat.format(pattern, args));
-	}
-
-	private void error(String message) {
-		JOptionPane.showMessageDialog(null, message, "Sorry, unable to launch application", JOptionPane.ERROR_MESSAGE);
-	}*/
 }
