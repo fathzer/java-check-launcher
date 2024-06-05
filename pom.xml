@@ -37,8 +37,8 @@
 				<sonar.issue.ignore.multicriteria.e1.ruleKey>java:S3740</sonar.issue.ignore.multicriteria.e1.ruleKey>
 				<sonar.issue.ignore.multicriteria.e1.resourceKey>**/*</sonar.issue.ignore.multicriteria.e1.resourceKey>
 				<!-- Skip catch with same body, not supported in java 1.2 -->
-				<sonar.issue.ignore.multicriteria.e1.ruleKey>java:S2147</sonar.issue.ignore.multicriteria.e1.ruleKey>
-				<sonar.issue.ignore.multicriteria.e1.resourceKey>**/*</sonar.issue.ignore.multicriteria.e1.resourceKey>
+				<sonar.issue.ignore.multicriteria.e2.ruleKey>java:S2147</sonar.issue.ignore.multicriteria.e2.ruleKey>
+				<sonar.issue.ignore.multicriteria.e2.resourceKey>**/*</sonar.issue.ignore.multicriteria.e2.resourceKey>
 				<!-- Skip use of System.err for Console logger -->
 				<sonar.issue.ignore.multicriteria.e3.ruleKey>java:S106</sonar.issue.ignore.multicriteria.e3.ruleKey>
 				<sonar.issue.ignore.multicriteria.e3.resourceKey>**/Console.java</sonar.issue.ignore.multicriteria.e3.resourceKey>
