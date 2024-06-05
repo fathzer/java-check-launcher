@@ -32,13 +32,19 @@
 		<profile>
 			<id>sonar</id>
 			<properties>
-				<sonar.issue.ignore.multicriteria>e1,e2</sonar.issue.ignore.multicriteria>
+				<sonar.issue.ignore.multicriteria>e1,e2,e3,e4</sonar.issue.ignore.multicriteria>
 				<!-- Skip parametrized type for generic not supported in java 1.2 -->
 				<sonar.issue.ignore.multicriteria.e1.ruleKey>java:S3740</sonar.issue.ignore.multicriteria.e1.ruleKey>
 				<sonar.issue.ignore.multicriteria.e1.resourceKey>**/*</sonar.issue.ignore.multicriteria.e1.resourceKey>
+				<!-- Skip catch with same body, not supported in java 1.2 -->
+				<sonar.issue.ignore.multicriteria.e1.ruleKey>java:S2147</sonar.issue.ignore.multicriteria.e1.ruleKey>
+				<sonar.issue.ignore.multicriteria.e1.resourceKey>**/*</sonar.issue.ignore.multicriteria.e1.resourceKey>
 				<!-- Skip use of System.err for Console logger -->
-				<sonar.issue.ignore.multicriteria.e2.ruleKey>java:S106</sonar.issue.ignore.multicriteria.e2.ruleKey>
-				<sonar.issue.ignore.multicriteria.e2.resourceKey>**/Console</sonar.issue.ignore.multicriteria.e2.resourceKey>
+				<sonar.issue.ignore.multicriteria.e3.ruleKey>java:S106</sonar.issue.ignore.multicriteria.e3.ruleKey>
+				<sonar.issue.ignore.multicriteria.e3.resourceKey>**/Console.java</sonar.issue.ignore.multicriteria.e3.resourceKey>
+				<!-- Skip e.printStackTrace usage in Console -->
+				<sonar.issue.ignore.multicriteria.e4.ruleKey>java:S4507</sonar.issue.ignore.multicriteria.e4.ruleKey>
+				<sonar.issue.ignore.multicriteria.e4.resourceKey>**/Console.java</sonar.issue.ignore.multicriteria.e4.resourceKey>
 				<!-- Sonar requires java 17 that does not support any java version under 1.7 -->
 				<compileSource>1.7</compileSource>
 				<!-- We should check code with java 1.7 signatures because the
