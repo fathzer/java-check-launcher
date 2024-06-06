@@ -15,7 +15,7 @@ public abstract class Utils {
 	 */
 	public interface InputStreamSupplier {
 		/** Gets an InputStream. 
-		 * @return an non null InputStream
+		 * @return A non null InputStream
 		 * @throws IOException If something went wrong
 		 */
 		InputStream get() throws IOException;

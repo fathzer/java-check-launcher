@@ -2,7 +2,6 @@ package com.fathzer.launcher;
 
 import java.io.IOException;
 import java.io.InputStream;
-import java.lang.reflect.InvocationTargetException;
 import java.util.Properties;
 
 import com.fathzer.launcher.Utils.InputStreamSupplier;
@@ -22,7 +21,7 @@ public class Parameters {
 	 * @throws IllegalArgumentException if min &lt; 1.2 or className if null or blank.
 	 */ 
 	public Parameters(Version min, String className) {
-		if (min.compareTo(MINIMUM_SUPPORTED_JAVA_VERSION)<0) {
+		if (min==null || min.compareTo(MINIMUM_SUPPORTED_JAVA_VERSION)<0) {
 			throw new IllegalArgumentException("Illegal Java min version "+min);
 		}
 		if (className==null || className.trim().length()==0) {
@@ -103,7 +102,7 @@ public class Parameters {
 	 * @throws IllegalArgumentException if logger is null.  
 	 */
 	public void setLogger(Logger logger) {
-		if (this.logger==null) {
+		if (logger==null) {
 			throw new IllegalArgumentException("Output can't be null");
 		}
 		this.logger = logger;
