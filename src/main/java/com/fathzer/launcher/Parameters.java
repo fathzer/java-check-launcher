@@ -67,6 +67,7 @@ public class Parameters {
 		return parameters;
 	}
 
+	@SuppressWarnings("java:S3878") // Array creation can't be omitted in java 1.2
 	private static Logger getCustomLogger(String className) {
 		final String defaultErrMessage = "Unable to create class "+className+" with no argument constructor";
 		try {
