@@ -50,7 +50,7 @@
 					in JDK versions < 1.7. Creating a dedicated exception would force use to keep it even when,
 					in a future release, we will stop java 1.7- versions support
  				-->
-				<sonar.issue.ignore.multicriteria.e5.ruleKey>java:java:S112</sonar.issue.ignore.multicriteria.e5.ruleKey>
+				<sonar.issue.ignore.multicriteria.e5.ruleKey>java:S112</sonar.issue.ignore.multicriteria.e5.ruleKey>
 				<sonar.issue.ignore.multicriteria.e5.resourceKey>**/Launcher.java</sonar.issue.ignore.multicriteria.e5.resourceKey>
 				<!-- Skip Disambiguate this call and Remove this arry creation in Parameters -->
 				<sonar.issue.ignore.multicriteria.e6.ruleKey> java:S3878</sonar.issue.ignore.multicriteria.e6.ruleKey>
