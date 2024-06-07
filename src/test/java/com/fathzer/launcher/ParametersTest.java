@@ -46,6 +46,9 @@ public class ParametersTest {
 		
 		params = Parameters.get(new Utils.ResourceStreamSupplier("settings.properties"));
 		assertTrue(params.getLogger() instanceof Swing);
+
+		params = Parameters.get(new Utils.ResourceStreamSupplier("noLogger.properties"));
+		assertTrue(params.getLogger() instanceof Console);
 	}
 	
 	@Test(expected = IllegalArgumentException.class)
