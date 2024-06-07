@@ -52,12 +52,16 @@ public class Parameters {
 		}
 		final String className = prop.getProperty("main.class");
 		final Parameters parameters = new Parameters(new Version(min), className);
-		final String out = prop.getProperty("logger","");
-		if ("Swing".equalsIgnoreCase(out)) {
-			parameters.setLogger(new Swing());
-		} else if (out.startsWith(CUSTOM_LOGGER_PREFIX)) {
-			// Custom logger
-			parameters.setLogger(getCustomLogger(out.substring(CUSTOM_LOGGER_PREFIX.length())));
+		final String out = prop.getProperty("logger");
+		if (out!=null) {
+			if ("Swing".equalsIgnoreCase(out)) {
+				parameters.setLogger(new Swing());
+			} else if (out.startsWith(CUSTOM_LOGGER_PREFIX)) {
+				// Custom logger
+				parameters.setLogger(getCustomLogger(out.substring(CUSTOM_LOGGER_PREFIX.length())));
+			} else {
+				throw new IllegalArgumentException(out+" is not a valid logger");
+			}
 		}
 		return parameters;
 	}

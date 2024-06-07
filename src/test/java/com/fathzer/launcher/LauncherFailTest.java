@@ -38,6 +38,7 @@ public class LauncherFailTest {
 			{ "noClassSettings.properties", -2 },
 			{ "noJavaMinVersionSettings.properties", -2 },
 			{ "IllegalJavaMinVersionSettings.properties", -2 },
+			{ "UnknownLogger.properties", -2 },
 			{ "tooSmallJavaMinVersionSettings.properties", -1 }
 		});
 	}

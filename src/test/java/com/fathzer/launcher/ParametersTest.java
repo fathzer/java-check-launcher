@@ -11,8 +11,9 @@ import org.junit.Test;
 public class ParametersTest {
 	@SuppressWarnings("unused")
 	private static class LoggerWithNoDefaultConstructor implements Logger {
+		String name;
 		LoggerWithNoDefaultConstructor(String name) {
-			super();
+			this.name = name;
 		}
 
 		@Override
@@ -79,7 +80,7 @@ public class ParametersTest {
 	
 	@Test(expected = IllegalArgumentException.class)
 	public void testNotALogger() throws Throwable {
-		checkCustomLoggerError("StringBuffer");
+		checkCustomLoggerError("java.lang.StringBuffer");
 	}
 	
 	@Test(expected = IllegalArgumentException.class)
