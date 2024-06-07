@@ -60,10 +60,6 @@ public class Launcher {
 	 * @throws Exception If the java version meets the requirements but we were unable to launch the application
 	 * (typically because an unknown class was passed in the parameters or a class with no main method).
 	 */
-	// Unfortunately, RefelectiveOperationException, which would be a good candidate does not exists in JDK versions < 1.7
-	// Created a dedicated exception would force use to keep it even when, in a far future release, we will stop
-	// to support java 1.7- version
-	//NOSONAR
 	public boolean launch(Parameters params, String[] args) throws Exception {
 		final String current = System.getProperty("java.specification.version");
 		if (new Version(current).compareTo(params.getMinJavaVersion())<0) {

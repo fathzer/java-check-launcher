@@ -71,8 +71,6 @@ public class Parameters {
 		final String defaultErrMessage = "Unable to create class "+className+" with no argument constructor";
 		try {
 			final Class theClass = Class.forName(className);
-			// Array creation can't be omitted in java 1.2
-			//NOSONAR
 			return (Logger) theClass.getDeclaredConstructor(new Class[] {}).newInstance(new Object[] {});
 		} catch (ClassNotFoundException e) {
 			throw new IllegalArgumentException(defaultErrMessage);

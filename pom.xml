@@ -32,7 +32,7 @@
 		<profile>
 			<id>sonar</id>
 			<properties>
-				<sonar.issue.ignore.multicriteria>e1,e2,e3,e4</sonar.issue.ignore.multicriteria>
+				<sonar.issue.ignore.multicriteria>e1,e2,e3,e4,e5,e6,e7</sonar.issue.ignore.multicriteria>
 				<!-- Skip parametrized type for generic not supported in java 1.2 -->
 				<sonar.issue.ignore.multicriteria.e1.ruleKey>java:S3740</sonar.issue.ignore.multicriteria.e1.ruleKey>
 				<sonar.issue.ignore.multicriteria.e1.resourceKey>**/*</sonar.issue.ignore.multicriteria.e1.resourceKey>
@@ -45,6 +45,17 @@
 				<!-- Skip e.printStackTrace usage in Console -->
 				<sonar.issue.ignore.multicriteria.e4.ruleKey>java:S4507</sonar.issue.ignore.multicriteria.e4.ruleKey>
 				<sonar.issue.ignore.multicriteria.e4.resourceKey>**/Console.java</sonar.issue.ignore.multicriteria.e4.resourceKey>
+				<!-- Skip Define and throw a dedicated exception instead of using a generic one in Launcher
+					Unfortunately, RefelectiveOperationException, which would be a good candidate does not exists
+					in JDK versions < 1.7. Creating a dedicated exception would force use to keep it even when,
+					in a future release, we will stop java 1.7- versions support
+ 				-->
+				<sonar.issue.ignore.multicriteria.e5.ruleKey>java:java:S112</sonar.issue.ignore.multicriteria.e5.ruleKey>
+				<sonar.issue.ignore.multicriteria.e5.resourceKey>**/Launcher.java</sonar.issue.ignore.multicriteria.e5.resourceKey>
+				<!-- Skip Disambiguate this call and Remove this arry creation in Parameters -->
+				<sonar.issue.ignore.multicriteria.e7.ruleKey> java:S3878</sonar.issue.ignore.multicriteria.e7.ruleKey>
+				<sonar.issue.ignore.multicriteria.e7.resourceKey>**/Parameters.java</sonar.issue.ignore.multicriteria.e7.resourceKey>
+				
 				<!-- exclude Loggers from coverage -->
 				<sonar.coverage.exclusions>**/Swing.java,**/Console.java</sonar.coverage.exclusions>
 
