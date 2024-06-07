@@ -3,6 +3,8 @@ package com.fathzer.launcher;
 import java.text.MessageFormat;
 import java.util.ResourceBundle;
 
+/** A {@link Logger} that outputs its messages to System.err.
+ */
 public class Console implements Logger {
 	private static final String WRONG_JAVA_VERSION_PATTERN;
 	private static final String FATAL_ERROR_MESSAGE;
@@ -19,7 +21,7 @@ public class Console implements Logger {
 	}
 
 	public void wrongJavaVersion(Version min, String current) {
-		final Object[] args = new Object[] {min, current};
+		final Object[] args = new Object[] {current, min};
 		System.err.println(MessageFormat.format(WRONG_JAVA_VERSION_PATTERN, args));
 	}
 }

@@ -5,6 +5,8 @@ import java.util.ResourceBundle;
 
 import javax.swing.JOptionPane;
 
+/** A {@link Logger} that outputs its messages to a Swing dialog.
+ */
 public class Swing implements Logger {
 	private static final String DIALOG_TITLE;
 	private static final String WRONG_JAVA_VERSION_PATTERN;
@@ -22,12 +24,12 @@ public class Swing implements Logger {
 		error(MessageFormat.format(FATAL_ERROR_PATTERN, args));
 	}
 	
-	private void error(String message) {
-		JOptionPane.showMessageDialog(null, message, DIALOG_TITLE, JOptionPane.ERROR_MESSAGE);
+	public void wrongJavaVersion(Version min, String current) {
+		final Object[] args = new Object[] {current, min};
+		error(MessageFormat.format(WRONG_JAVA_VERSION_PATTERN, args));
 	}
 
-	public void wrongJavaVersion(Version min, String current) {
-		final Object[] args = new Object[] {min, current};
-		error(MessageFormat.format(WRONG_JAVA_VERSION_PATTERN, args));
+	private void error(String message) {
+		JOptionPane.showMessageDialog(null, message, DIALOG_TITLE, JOptionPane.ERROR_MESSAGE);
 	}
 }

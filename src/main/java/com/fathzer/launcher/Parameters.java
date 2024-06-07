@@ -2,6 +2,7 @@ package com.fathzer.launcher;
 
 import java.io.IOException;
 import java.io.InputStream;
+import java.lang.reflect.InvocationTargetException;
 import java.util.Properties;
 
 import com.fathzer.launcher.Utils.InputStreamSupplier;
@@ -67,15 +68,24 @@ public class Parameters {
 	}
 
 	private static Logger getCustomLogger(String className) {
+		final String defaultErrMessage = "Unable to create class "+className+" with no argument constructor";
 		try {
 			final Class theClass = Class.forName(className);
-			return (Logger) theClass.getDeclaredConstructor().newInstance();
-		} catch (ReflectiveOperationException e) {
-			throw new IllegalArgumentException("Unable to create class "+className+" with no argument constructor");
+			return (Logger) theClass.getDeclaredConstructor(new Class[] {}).newInstance(new Object[] {});
+		} catch (ClassNotFoundException e) {
+			throw new IllegalArgumentException(defaultErrMessage);
+		} catch (InstantiationException e) {
+			throw new IllegalArgumentException(defaultErrMessage);
+		} catch (SecurityException e) {
+			throw new IllegalArgumentException(defaultErrMessage);
+		} catch (IllegalAccessException e) {
+			throw new IllegalArgumentException(defaultErrMessage);
+		} catch (InvocationTargetException e) {
+			throw new IllegalArgumentException(defaultErrMessage);
+		} catch (NoSuchMethodException e) {
+			throw new IllegalArgumentException(defaultErrMessage);
 		} catch (ClassCastException e) {
 			throw new IllegalArgumentException("Class "+className+" does not implements "+Logger.class.getName());
-		} catch (SecurityException e) {
-			throw new IllegalArgumentException("Unable to create class "+className+" with no argument constructor");
 		}
 	}
 

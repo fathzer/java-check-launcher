@@ -1,12 +1,16 @@
 package com.fathzer.launcher;
 
 import java.math.BigDecimal;
-import java.util.Objects;
 
+/** A java version.
+ */
 public class Version implements Comparable {
 	private final String asString;
 	private final BigDecimal asBigDecimal;
 	
+	/** Constructor.
+	 * @param version The java main version in the same format as the <i>java.specification.version</i> system property. 
+	 */
 	public Version(String version) {
 		this.asString = version;
 		asBigDecimal = new BigDecimal(version);
@@ -16,12 +20,10 @@ public class Version implements Comparable {
 		return asBigDecimal.compareTo(((Version)o).asBigDecimal);
 	}
 	
-	@Override
 	public int hashCode() {
 		return asBigDecimal.hashCode();
 	}
 
-	@Override
 	public boolean equals(Object obj) {
 		if (this == obj) {
 			return true;
@@ -30,7 +32,7 @@ public class Version implements Comparable {
 			return false;
 		}
 		Version other = (Version) obj;
-		return Objects.equals(asBigDecimal, other.asBigDecimal);
+		return asBigDecimal.equals(other.asBigDecimal);
 	}
 
 	public String toString() {

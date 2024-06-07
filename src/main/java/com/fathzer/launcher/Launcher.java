@@ -1,5 +1,6 @@
 package com.fathzer.launcher;
 
+import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 
 import com.fathzer.launcher.Utils.InputStreamSupplier;
@@ -56,10 +57,10 @@ public class Launcher {
 	 * @param params The parameters of the check.
 	 * @param args The arguments of the application's main method.
 	 * @return true if the application was launched, false if the java version is not compatible with the application.
-	 * @throws ReflectiveOperationException If the java version meets the requirements but we were unable to launch the application
+	 * @throws Exception If the java version meets the requirements but we were unable to launch the application
 	 * (typically because an unknown class was passed in the parameters or a class with no main method).
 	 */
-	public boolean launch(Parameters params, String[] args) throws ReflectiveOperationException {
+	public boolean launch(Parameters params, String[] args) throws Exception {
 		final String current = System.getProperty("java.specification.version");
 		if (new Version(current).compareTo(params.getMinJavaVersion())<0) {
 			params.getLogger().wrongJavaVersion(params.getMinJavaVersion(), current);
