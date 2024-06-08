@@ -39,7 +39,9 @@ The launcher will check the java version and will display a comprehensive messag
 If the java version is not supported, the process exits with a -1 code. If an error occurs (for instance if settings are invalid), the process exits with a -2 code.  
 If everything is ok, the arguments are passed to the application's main method.
 
-
+## How to localize the alert messages when application can't be launched?
+This library emits warnings in English. They are read from the `com/fathzer/launcher/Resources` [ResourceBundle]().  
+If you want, for instance, add French translations, you have to add a your a `com/fathzer/launcher/Resources_fr.properties` containing those translations to your application's resources.
 
 ## How to compile it?
 Recent Java JDK are not able to compile anymore java 1.2 code. **You should use a Java 8 JDK**.
