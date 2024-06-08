@@ -30,10 +30,11 @@ main.class=com.me.MyApp
 logger=swing
 ```
 Replace the `min.java.version` value with the minimum java version required by your application and `main.class` value by the name of your main class.  
-`logger` is optional. If your application is a Swing application, leave the line, if it is a console application, remove the line.
+`logger` is optional. If your application is a Swing application, leave the line, if it is a console application, remove the line.  
+You can also implement your own [logger](https://github.com/fathzer/java-check-launcher/blob/src/main/java/com.fathzer.launcher.Logger.java). Be aware that this class will be instantiated before checking whether running JRE is recent enough. So it is wise to compile your custom logger for java 1.2.
 
 3 - Launch the application.
-Run the command `java com.fathzer.launcher.Launcher arg1 arg2`.  
+Run the command `java com.fathzer.launcher.Launcher arg1 arg2` (Here, *arg1* and *arg2* are examples, assuming that the launch application requires two arguments. If your application requires no arguments, just run `java com.fathzer.launcher.Launcher`).  
 The launcher will check the java version and will display a comprehensive message if application is not compatible with installed java version (not the usual `unsupported class file major version` exception).  
 If the java version is not supported, the process exits with a -1 code. If an error occurs (for instance if settings are invalid), the process exits with a -2 code.  
 If everything is ok, the arguments are passed to the application's main method.
