@@ -6,16 +6,16 @@ import org.junit.Test;
 
 import com.fathzer.launcher.test.TestApp;
 
-public class LauncherTest {
+public class TestAppTest {
 
 	@Test
 	public void test() {
 		TestApp.reset();
-		final NoExitLauncher launcher = new NoExitLauncher();
-		launcher.doMain(new String[]{"A","B"}, new Console());
+		assertFalse(TestApp.wasCalled());
 		
+		TestApp.main(new String[] {"A"});
 		assertTrue(TestApp.wasCalled());
-		assertNull(launcher.getExitCode());
+		TestApp.reset();
+		assertFalse(TestApp.wasCalled());
 	}
-
 }
