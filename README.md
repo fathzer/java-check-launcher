@@ -23,7 +23,7 @@ Add the following dependency to your project.
 ```
 
 2 - Create settings resources.
-  Create a resource file in `com/fathzer/java-check-launcher/settings.properties` with the following content:  
+  Create a resource file in `com/fathzer/launcher/settings.properties` with the following content:  
 ```
 min.java.version=1.8
 main.class=com.me.MyApp
