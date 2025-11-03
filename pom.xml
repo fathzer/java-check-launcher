@@ -5,10 +5,10 @@
 	<parent>
 		<groupId>com.fathzer</groupId>
 		<artifactId>parent-pom</artifactId>
-		<version>1.0.8</version>
+		<version>1.1.0</version>
 	</parent>
 	<artifactId>java-check-launcher</artifactId>
-	<version>1.0.0</version>
+	<version>1.0.1</version>
 
 	<name>java-check-launcher</name>
 
@@ -32,7 +32,7 @@
 		<profile>
 			<id>sonar</id>
 			<properties>
-				<sonar.issue.ignore.multicriteria>e1,e2,e3,e4,e5,e6</sonar.issue.ignore.multicriteria>
+				<sonar.issue.ignore.multicriteria>e1,e2,e3,e4,e5,e6,e7,e8</sonar.issue.ignore.multicriteria>
 				<!-- Skip parametrized type for generic not supported in java 1.2 -->
 				<sonar.issue.ignore.multicriteria.e1.ruleKey>java:S3740</sonar.issue.ignore.multicriteria.e1.ruleKey>
 				<sonar.issue.ignore.multicriteria.e1.resourceKey>**/*</sonar.issue.ignore.multicriteria.e1.resourceKey>
@@ -52,10 +52,16 @@
  				-->
 				<sonar.issue.ignore.multicriteria.e5.ruleKey>java:S112</sonar.issue.ignore.multicriteria.e5.ruleKey>
 				<sonar.issue.ignore.multicriteria.e5.resourceKey>**/Launcher.java</sonar.issue.ignore.multicriteria.e5.resourceKey>
-				<!-- Skip Disambiguate this call and Remove this arry creation in Parameters -->
+				<!-- Skip Disambiguate this call and Remove this array creation in Parameters -->
 				<sonar.issue.ignore.multicriteria.e6.ruleKey> java:S3878</sonar.issue.ignore.multicriteria.e6.ruleKey>
-				<sonar.issue.ignore.multicriteria.e6.resourceKey>**/Parameters.java</sonar.issue.ignore.multicriteria.e6.resourceKey>
-				
+				<sonar.issue.ignore.multicriteria.e6.resourceKey>**/*</sonar.issue.ignore.multicriteria.e6.resourceKey>
+				<!-- Skip use of StringBuffer (StringBuilder does not exists) -->
+				<sonar.issue.ignore.multicriteria.e7.ruleKey>java:S1149</sonar.issue.ignore.multicriteria.e7.ruleKey>
+				<sonar.issue.ignore.multicriteria.e7.resourceKey>**/*.java</sonar.issue.ignore.multicriteria.e7.resourceKey>
+				<!-- Skip String.length()==0 (isEmpty does not exists) -->
+				<sonar.issue.ignore.multicriteria.e8.ruleKey>java:S7158</sonar.issue.ignore.multicriteria.e8.ruleKey>
+				<sonar.issue.ignore.multicriteria.e8.resourceKey>**/*.java</sonar.issue.ignore.multicriteria.e8.resourceKey>
+
 				<!-- exclude Loggers from coverage -->
 				<sonar.coverage.exclusions>**/Swing.java,**/Console.java</sonar.coverage.exclusions>
 
@@ -66,6 +72,8 @@
 				<animal-sniffer-signature>java17</animal-sniffer-signature>
 				<!-- Be cool with the planet, javadoc is totally useless in Sonar context -->
 				<maven.javadoc.skip>true</maven.javadoc.skip>
+				<maven.install.skip>true</maven.install.skip>
+				<maven.deploy.skip>true</maven.deploy.skip>
 			</properties>
 		</profile>
 	</profiles>

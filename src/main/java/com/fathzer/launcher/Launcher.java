@@ -1,6 +1,5 @@
 package com.fathzer.launcher;
 
-import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 
 import com.fathzer.launcher.Utils.InputStreamSupplier;
