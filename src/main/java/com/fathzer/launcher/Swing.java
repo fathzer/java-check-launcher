@@ -1,5 +1,7 @@
 package com.fathzer.launcher;
 
+import java.io.PrintWriter;
+import java.io.StringWriter;
 import java.text.MessageFormat;
 import java.util.ResourceBundle;
 
@@ -20,8 +22,7 @@ public class Swing implements Logger {
 	}
 
 	public void fatalError(Exception exception) {
-		final Object[] args = new Object[]{exception.toString()};
-		error(MessageFormat.format(FATAL_ERROR_PATTERN, args));
+		error(MessageFormat.format(FATAL_ERROR_PATTERN, new String[] {getHtmlStackTrace(exception)}));
 	}
 
 	public void wrongJavaVersion(Version min, String current) {
@@ -32,4 +33,17 @@ public class Swing implements Logger {
 	private void error(String message) {
 		JOptionPane.showMessageDialog(null, message, DIALOG_TITLE, JOptionPane.ERROR_MESSAGE);
 	}
+	
+	private static String getHtmlStackTrace(Throwable e) {
+		String htmlTrace = Utils.replaceAll(getStackTrace(e), "\t","&nbsp;&nbsp;");
+		return Utils.replaceAll(htmlTrace,System.getProperty("line.separator"), "<br>");
+	}
+	
+    private static String getStackTrace(Throwable t) {
+        StringWriter sw = new StringWriter();
+        PrintWriter pw = new PrintWriter(sw);
+        t.printStackTrace(pw);
+        pw.flush();
+        return sw.toString();
+    }
 }

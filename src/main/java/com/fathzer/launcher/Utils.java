@@ -58,4 +58,30 @@ public abstract class Utils {
 		int index = name.lastIndexOf('.');
 		return name.substring(0,index);
 	}
+	
+	/** A Java 1.2 equivalent of String.replace(String, String)
+	 * 
+	 * @param source The source String
+	 * @param target The string to replace
+	 * @param replacement The replacement string
+	 * @return A String where all occurrences of <code>target</code> are replaced by <code>replacement</code>
+	 */
+	public static String replaceAll(String source, String target, String replacement) {
+	    if (source == null || target == null || target.length() == 0) {
+	        return source;
+	    }
+
+	    StringBuffer result = new StringBuffer();
+	    int start = 0;
+	    int index;
+
+	    while ((index = source.indexOf(target, start)) >= 0) {
+	        result.append(source.substring(start, index));
+	        result.append(replacement);
+	        start = index + target.length();
+	    }
+
+	    result.append(source.substring(start));
+	    return result.toString();
+	}
 }
